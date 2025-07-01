@@ -4,6 +4,25 @@
   box-sizing: border-box;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Pirata+One&display=swap');
+
+
+.pirata-one-regular {
+  font-family: "Pirata One", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+$MainText-color: #f0e6d2; //Основний текстовий кольор
+$color-bg: #1a1a1a; // фон (напів прозорий для текстових блоків (rgb 26,26,26))
+$color-gold: #c9a66b; // Золотий відтінок
+
+$color-1: #153d3c; // тёмно-бирюзовый
+$color-2: #1b6c7e; // морской синий
+$color-3: #2f8e8b; // бирюзово-синий
+$color-4: #0b1a1a; // глубокий морской
+$color-5: #3a5557; // серо-синий
+
 @mixin flex-layout( $direction: row, $justify: space-around, $align: center) {
   display: flex;
   flex-direction: $direction;
@@ -11,61 +30,149 @@
   align-items: $align;
 }
 
+@mixin background-overlay($color, $alpha) {
+  background-color: rgba($color, $alpha);
+}
+
 html, body {
   height: 100%;
-  width: 100%;
   margin: 0;
   padding: 0;
 }
 
 body {
-  min-height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.backGroundMain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -10;
+  object-fit: cover;
 }
 
 header {
+  font-family: 'Pirata One', cursive;
   @include flex-layout(row, center, center);
+  @include background-overlay($color-bg, 0.7);
+  color: $MainText-color;
+  padding: 15px 0;
 
   .logo {
 
     h1 {
       text-align: center;
-      font-size: 3rem;
-      letter-spacing: 2px;
+      font-size: 4rem;
+      letter-spacing: 5px;
       pointer-events: none;
+      font-weight: 500;
     }
 
     h2 {
-      font-size: 1rem;
+      font-size: 1.5rem;
       pointer-events: none;
+      letter-spacing: 2px;
+      font-weight: 200;
+
     }
   }
 }
 
 main {
-  @include flex-layout(row, center, center);
+  flex: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
 
   .wrapper {
+    @include flex-layout(column, center, center);
+    @include background-overlay($color-bg, 0.7);
+    height: 100%;
     max-width: 1200px;
-    margin: 0 auto;
-    background: darkgray;
+    padding: 40px 20px;
+    gap: 30px;
+
 
     .gameStartContainer {
       @include flex-layout(row, center, center);
-      width: 100%;
-      height: 100%;
 
       .startGameBtn {
 
       }
     }
+
     .battleFieldContainer {
       @include flex-layout(row, center, center);
-      gap:30px;
-      .battleField{
+      gap: 30px;
+
+      .battleField {
         min-height: 200px;
         min-width: 200px;
         background-color: cornflowerblue;
       }
     }
+
+    .color-palette {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+      gap: 16px;
+      max-width: 500px;
+      margin: auto;
+    }
+
+    .color-block {
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      color: #fff;
+      font-size: 14px;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .color-1 {
+      background-color: #153d3c;
+    }
+
+    .color-2 {
+      background-color: #1b6c7e;
+    }
+
+    .color-3 {
+      background-color: #2f8e8b;
+    }
+
+    .color-4 {
+      background-color: #0b1a1a;
+    }
+
+    .color-5 {
+      background-color: #3a5557;
+    }
+
+    .color-6 {
+      background-color: #1a1a1a;
+    }
+
+    .color-7 {
+      background-color: #c9a66b;
+    }
   }
+}
+
+footer {
+  text-align: center;
+  padding: 15px;
+  @include background-overlay($color-bg, 0.7);
+  color: $MainText-color;
+  font-size: 14px;
+  font-family: 'Pirata One', cursive;
+  letter-spacing: 1px;
 }
