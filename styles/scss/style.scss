@@ -46,6 +46,7 @@ body {
   flex-direction: column;
   min-height: 100vh;
 }
+
 .backGroundMain {
   position: absolute;
   top: 0;
@@ -92,38 +93,109 @@ main {
   padding: 40px 20px;
 
   .wrapper {
-    @include flex-layout(column, center, center);
-    @include background-overlay($color-bg, 0.7);
+    @include flex-layout(column, space-around, center);
+    //@include background-overlay($color-bg, 0.7);
     height: 100%;
     max-width: 1200px;
-    padding: 40px 20px;
-    gap: 30px;
 
 
     .gameStartContainer {
-      @include flex-layout(row, center, center);
+      @include flex-layout(row, center, end);
 
       .startGameBtn {
-
+        font-family: 'Pirata One', cursive;
+        font-size: 1.5rem;
+        padding: 10px 20px;
+        border-radius: 10px;
+        border: none;
       }
     }
 
-    .battleFieldContainer {
+    .playingFieldContainer {
       @include flex-layout(row, center, center);
+      @include background-overlay($color-bg, 0.7);
+      padding: 40px 20px;
       gap: 30px;
-
-      .battleField {
-        min-height: 200px;
-        min-width: 200px;
-        background-color: cornflowerblue;
+      .ship-image.vertical {
+        transform: rotate(90deg);
+        transform-origin: center center; /* Ensure rotation is around the center */
       }
+
+      .shipsContainer {
+        @include flex-layout(column, space-around, center);
+        height: 100%;
+        h3{
+          font-family: 'Pirata One', cursive;
+          font-weight: normal;
+          color: $MainText-color;
+          letter-spacing: 1px;
+        }
+
+        .ship-image {
+          width: auto;
+          height: 40px;
+          cursor: grab;
+          object-fit: fill;
+          z-index: 100;
+        }
+        .ship-size-5{
+          width: 200px;
+          height: 40px;
+        }
+        .ship-size-4{
+          width: 160px;
+          height: 40px;
+        }
+        .ship-size-3{
+          width: 120px;
+          height: 40px;
+        }
+        .ship-size-2{
+          width: 80px;
+          height: 40px;
+        }
+        .ship-size-1{
+          width: 40px;
+          height: 40px;
+        }
+      }
+      .playerGrid {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(10, 35px);
+        grid-template-rows: repeat(10, 35px);
+        gap: 2px;
+        padding: 5px;
+        @include background-overlay($color-bg, 0.7);
+      }
+      .enemyGrid{
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(10, 35px);
+        grid-template-rows: repeat(10, 35px);
+        gap: 2px;
+        padding: 5px;
+        @include background-overlay($color-bg, 0.7);
+      }
+      .cell {
+        width: 35px;
+        height: 35px;
+        background-color: #153d3c;
+        border: 1px solid #0b1a1a;
+        position: relative;
+      }
+      .placed-ship {
+        pointer-events: none;
+        z-index: 10;
+      }
+
     }
 
     .color-palette {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
       gap: 16px;
-      max-width: 500px;
+      max-width: 900px;
       margin: auto;
     }
 
@@ -170,7 +242,7 @@ main {
 footer {
   text-align: center;
   padding: 15px;
-  @include background-overlay($color-bg, 0.7);
+  @include background-overlay($color-bg, 0.6);
   color: $MainText-color;
   font-size: 14px;
   font-family: 'Pirata One', cursive;

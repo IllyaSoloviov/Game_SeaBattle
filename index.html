@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./styles/css/style.css">
 </head>
 <body>
-<img  class="backGroundMain" src="./img/BG-v3.png" alt="bg">
+<img class="backGroundMain" src="./img/BG-v3.png" alt="bg">
 <header>
     <div class="logo">
         <h1>Sea Battle</h1>
@@ -19,12 +19,49 @@
 <main>
 
     <div class="wrapper">
+        <section class="playingFieldContainer">
+            <div class="shipsContainer">
+                <h3>Available Ships</h3>
+
+                <img src="./img/WarShips/5X_Ship.png" alt="Ship size 5"
+                     class="ship-image ship-size-5"
+                     draggable="true"
+                     data-size="5"
+                     data-orientation="horizontal">
+
+                <img src="./img/WarShips/4X_Ship.png" alt="Ship size 4"
+                     class="ship-image ship-size-4"
+                     draggable="true"
+                     data-size="4"
+                     data-orientation="horizontal">
+
+                <img src="./img/WarShips/3X_Ship.png" alt="Ship size 3"
+                     class="ship-image ship-size-3"
+                     draggable="true"
+                     data-size="3"
+                     data-orientation="horizontal">
+
+                <img src="./img/WarShips/2X_Ship.png" alt="Ship size 2"
+                     class="ship-image ship-size-2"
+                     draggable="true"
+                     data-size="2"
+                     data-orientation="horizontal">
+
+                <img src="./img/WarShips/1X_Ship.png" alt="Ship size 1"
+                     class="ship-image ship-size-1"
+                     draggable="true"
+                     data-size="1"
+                     data-orientation="horizontal">
+            </div>
+            <div class="playerGrid battleField" id="playerGrid">
+
+            </div>
+            <div class="enemyGrid battleField" id="enemyGrid">
+
+            </div>
+        </section>
         <section class="gameStartContainer">
             <button class="startGameBtn">Start Game</button>
-        </section>
-        <section class="battleFieldContainer">
-            <div class="playerField battleField"></div>
-            <div class="enemyField battleField"></div>
         </section>
         <section class="howToPlayContainer">
             <div class="howToPlay">
@@ -45,5 +82,6 @@
 <footer>
     <p>&copy; 2025 Sea Battle. All rights reserved.</p>
 </footer>
+<script src="./script.js"></script>
 </body>
 </html>
