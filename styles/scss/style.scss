@@ -34,6 +34,12 @@ $color-5: #3a5557; // серо-синий
   background-color: rgba($color, $alpha);
 }
 
+@mixin ship-size($size) {
+  width: $size * 40px;
+  height: 40px;
+  filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.5));
+}
+
 html, body {
   height: 100%;
   margin: 0;
@@ -93,103 +99,227 @@ main {
   padding: 40px 20px;
 
   .wrapper {
-    @include flex-layout(column, space-around, center);
+    display: grid;
+    grid-template-columns: 200px 1fr 1fr 200px;
+    grid-template-rows: 460px 100px;
+    column-gap: 30px;
     //@include background-overlay($color-bg, 0.7);
-    height: 100%;
-    max-width: 1200px;
+    .shipsContainer {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      align-items: end;
+      grid-column: 1 / 2;
+      grid-row: 1 / 3;
+
+      .ships-palette {
+        display: grid;
+        max-height: 400px;
+        grid-auto-flow: row;
+        grid-template-columns: repeat(auto-fit, minmax(170px, auto));
+        gap: 20px;
+        padding: 20px;
+        overflow-y: auto;
+        //align-content: center;
+        border: 4px solid $color-4;
+        @include background-overlay($color-bg, 0.7);
+
+        //padding: 15px;
+        border-radius: 8px;
+        //box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 
 
-    .gameStartContainer {
-      @include flex-layout(row, center, end);
-
-      .startGameBtn {
-        font-family: 'Pirata One', cursive;
-        font-size: 1.5rem;
-        padding: 10px 20px;
-        border-radius: 10px;
-        border: none;
       }
+
+
+    }
+    .navigation{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      grid-column: 2 / 4;
+      grid-row: 2 / 3;
     }
 
-    .playingFieldContainer {
-      @include flex-layout(row, center, center);
-      @include background-overlay($color-bg, 0.7);
-      padding: 40px 20px;
-      gap: 30px;
-      .ship-image.vertical {
-        transform: rotate(90deg);
-        transform-origin: center center; /* Ensure rotation is around the center */
-      }
 
-      .shipsContainer {
-        @include flex-layout(column, space-around, center);
+    .ship {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid $color-3;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      //box-sizing: content-box;
+      //padding: 10px;
+      cursor: grab;
+      transition: height .2s linear, width .3s linear .1s, scale .3s ease-out;
+
+      img {
+        width: 100%;
         height: 100%;
-        h3{
-          font-family: 'Pirata One', cursive;
-          font-weight: normal;
-          color: $MainText-color;
-          letter-spacing: 1px;
-        }
-
-        .ship-image {
-          width: auto;
-          height: 40px;
-          cursor: grab;
-          object-fit: fill;
-          z-index: 100;
-        }
-        .ship-size-5{
-          width: 200px;
-          height: 40px;
-        }
-        .ship-size-4{
-          width: 160px;
-          height: 40px;
-        }
-        .ship-size-3{
-          width: 120px;
-          height: 40px;
-        }
-        .ship-size-2{
-          width: 80px;
-          height: 40px;
-        }
-        .ship-size-1{
-          width: 40px;
-          height: 40px;
-        }
-      }
-      .playerGrid {
-        position: relative;
-        display: grid;
-        grid-template-columns: repeat(10, 35px);
-        grid-template-rows: repeat(10, 35px);
-        gap: 2px;
-        padding: 5px;
-        @include background-overlay($color-bg, 0.7);
-      }
-      .enemyGrid{
-        position: relative;
-        display: grid;
-        grid-template-columns: repeat(10, 35px);
-        grid-template-rows: repeat(10, 35px);
-        gap: 2px;
-        padding: 5px;
-        @include background-overlay($color-bg, 0.7);
-      }
-      .cell {
-        width: 35px;
-        height: 35px;
-        background-color: #153d3c;
-        border: 1px solid #0b1a1a;
-        position: relative;
-      }
-      .placed-ship {
         pointer-events: none;
-        z-index: 10;
+        filter: drop-shadow(10px 5px 5px rgba(0, 0, 0, 0.5));
+        transform-origin: center;
+        transition: transform .3s linear, width .2s linear .1s;
+        object-fit: contain;
       }
+    }
+
+
+    .ship[data-length="4"] {
+      width: 160px;
+      height: 40px;
+    }
+
+    .ship[data-length="3"] {
+      width: 120px;
+      height: 40px;
+    }
+
+    .ship[data-length="2"] {
+      width: 80px;
+      height: 40px;
+    }
+
+    .ship[data-length="1"] {
+      width: 40px;
+      height: 40px;
+    }
+
+    .ship.vertical[data-length="4"] {
+      width: 40px;
+      height: 160px;
+      transition: height .3s linear, width .3s linear;
+
+      img {
+        transform: rotate(-90deg);
+        transform-origin: center;
+        width: 400%;
+        height: 100%;
+        transition: transform .3s linear, width .3s linear .2s;
+        object-fit: contain;
+      }
+    }
+
+    .ship.vertical[data-length="3"] {
+      width: 40px;
+      height: 120px;
+      transition: height .3s linear, width .3s linear;
+
+      img {
+        transform: rotate(-90deg);
+        transform-origin: center;
+        width: 300%;
+        height: 100%;
+        transition: transform .3s linear, width .3s linear .2s;
+        object-fit: contain;
+      }
+    }
+
+    .ship.vertical[data-length="2"] {
+      width: 40px;
+      height: 80px;
+      transition: height .3s linear, width .3s linear;
+
+      img {
+        transform: rotate(-90deg);
+        //transform-origin: center;
+        width: 200%;
+        //height: 100%;
+        transition: transform .3s linear, width .3s linear .2s;
+        //object-fit: contain;
+      }
+    }
+
+    .ship:hover {
+      box-shadow: inset 0 0 15px rgba($color-3, 0.9), 0 0 25px rgba($color-3, 0.9);
+      scale: 1.2;
+    }
+
+    //.ship:active {
+    //  box-shadow: inset 0 0 13px rgba($color-2, 0.8), 0 0 13px rgba($color-2, 0.8);
+    //}
+
+    .ship.dragging {
+      opacity: 0.8;
+      cursor: grabbing;
+    }
+
+    .ship.placed {
+      position: absolute;
+      box-shadow: none;
+      cursor: default;
+      z-index: 10;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(10, 40px);
+      grid-template-rows: repeat(10, 40px);
+      width: 400px;
+      height: 400px;
+      box-sizing: content-box;
+      border: 4px solid $color-4;
+      position: relative;
 
     }
+    .grid-cell {
+      width: 40px;
+      height: 40px;
+      border: 1px solid grey;
+      box-sizing: border-box;
+      transition: background-color 0.2s;
+      @include background-overlay($color-bg, 0.7);
+    }
+
+    .grid-cell.drag-over {
+      background-color: #0ebadd;
+    }
+
+    .grid-cell.invalid {
+      background-color: #f33c3c;
+    }
+
+    .grid-wrapper, .enemy-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+
+    //Отображение вражеских ячеек
+    .grid-container .enemy-ship-cell {
+      background-color: #bbb ;
+    }
+
+    .grid-cell.hit {
+      background-color: #ff4d4f;
+    }
+
+    .grid-cell.miss {
+      background-color: transparent; //цвет чяейки при попадании
+      position: relative;
+    }
+
+    .grid-cell.miss::after {
+      color: #555;
+      font-size: 24px;
+      position: absolute;
+      top: 4px;
+      left: 12px;
+    }
+
+    .grid-cell.ai-hit {
+      background-color: red;
+      z-index: 100;
+      opacity: 0.4;
+    }
+
+    .grid-cell.ai-miss {
+      background-color: transparent;
+    }
+
 
     .color-palette {
       display: grid;

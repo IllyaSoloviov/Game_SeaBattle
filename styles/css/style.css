@@ -91,6 +91,50 @@ main {
   padding: 40px 20px;
 }
 main .wrapper {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 200px 30px 1fr 30px 1fr 30px 200px;
+  grid-template-columns: 200px 1fr 1fr 200px;
+  -ms-grid-rows: 460px 100px;
+  grid-template-rows: 460px 100px;
+  -webkit-column-gap: 30px;
+     -moz-column-gap: 30px;
+          column-gap: 30px;
+}
+main .wrapper > *:nth-child(1) {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+}
+main .wrapper > *:nth-child(2) {
+  -ms-grid-row: 1;
+  -ms-grid-column: 3;
+}
+main .wrapper > *:nth-child(3) {
+  -ms-grid-row: 1;
+  -ms-grid-column: 5;
+}
+main .wrapper > *:nth-child(4) {
+  -ms-grid-row: 1;
+  -ms-grid-column: 7;
+}
+main .wrapper > *:nth-child(5) {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+}
+main .wrapper > *:nth-child(6) {
+  -ms-grid-row: 2;
+  -ms-grid-column: 3;
+}
+main .wrapper > *:nth-child(7) {
+  -ms-grid-row: 2;
+  -ms-grid-column: 5;
+}
+main .wrapper > *:nth-child(8) {
+  -ms-grid-row: 2;
+  -ms-grid-column: 7;
+}
+main .wrapper .shipsContainer {
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -98,61 +142,601 @@ main .wrapper {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  height: 100%;
-  max-width: 1200px;
-}
-main .wrapper .gameStartContainer {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: end;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 1;
+  grid-column: 1/2;
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 2;
+  grid-row: 1/3;
 }
-main .wrapper .gameStartContainer .startGameBtn {
-  font-family: "Pirata One", cursive;
-  font-size: 1.5rem;
-  padding: 10px 20px;
-  border-radius: 10px;
-  border: none;
+main .wrapper .shipsContainer .ships-palette {
+  display: -ms-grid;
+  display: grid;
+  max-height: 400px;
+  grid-auto-flow: row;
+  grid-template-columns: repeat(auto-fit, minmax(170px, auto));
+  gap: 20px;
+  padding: 20px;
+  overflow-y: auto;
+  border: 4px solid #0b1a1a;
+  background-color: rgba(26, 26, 26, 0.7);
+  border-radius: 8px;
 }
-main .wrapper .playingFieldContainer {
+main .wrapper .navigation {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 2;
+  grid-column: 2/4;
+  -ms-grid-row: 2;
+  -ms-grid-row-span: 1;
+  grid-row: 2/3;
+}
+main .wrapper .ship {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border: 1px solid #2f8e8b;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  cursor: -webkit-grab;
+  cursor: grab;
+  -webkit-transition: height 0.2s linear, width 0.3s linear 0.1s, scale 0.3s ease-out;
+  transition: height 0.2s linear, width 0.3s linear 0.1s, scale 0.3s ease-out;
+}
+main .wrapper .ship img {
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  -webkit-filter: drop-shadow(10px 5px 5px rgba(0, 0, 0, 0.5));
+          filter: drop-shadow(10px 5px 5px rgba(0, 0, 0, 0.5));
+  -webkit-transform-origin: center;
+          transform-origin: center;
+  -webkit-transition: width 0.2s linear 0.1s, -webkit-transform 0.3s linear;
+  transition: width 0.2s linear 0.1s, -webkit-transform 0.3s linear;
+  transition: transform 0.3s linear, width 0.2s linear 0.1s;
+  transition: transform 0.3s linear, width 0.2s linear 0.1s, -webkit-transform 0.3s linear;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+main .wrapper .ship[data-length="4"] {
+  width: 160px;
+  height: 40px;
+}
+main .wrapper .ship[data-length="3"] {
+  width: 120px;
+  height: 40px;
+}
+main .wrapper .ship[data-length="2"] {
+  width: 80px;
+  height: 40px;
+}
+main .wrapper .ship[data-length="1"] {
+  width: 40px;
+  height: 40px;
+}
+main .wrapper .ship.vertical[data-length="4"] {
+  width: 40px;
+  height: 160px;
+  -webkit-transition: height 0.3s linear, width 0.3s linear;
+  transition: height 0.3s linear, width 0.3s linear;
+}
+main .wrapper .ship.vertical[data-length="4"] img {
+  -webkit-transform: rotate(-90deg);
+          transform: rotate(-90deg);
+  -webkit-transform-origin: center;
+          transform-origin: center;
+  width: 400%;
+  height: 100%;
+  -webkit-transition: width 0.3s linear 0.2s, -webkit-transform 0.3s linear;
+  transition: width 0.3s linear 0.2s, -webkit-transform 0.3s linear;
+  transition: transform 0.3s linear, width 0.3s linear 0.2s;
+  transition: transform 0.3s linear, width 0.3s linear 0.2s, -webkit-transform 0.3s linear;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+main .wrapper .ship.vertical[data-length="3"] {
+  width: 40px;
+  height: 120px;
+  -webkit-transition: height 0.3s linear, width 0.3s linear;
+  transition: height 0.3s linear, width 0.3s linear;
+}
+main .wrapper .ship.vertical[data-length="3"] img {
+  -webkit-transform: rotate(-90deg);
+          transform: rotate(-90deg);
+  -webkit-transform-origin: center;
+          transform-origin: center;
+  width: 300%;
+  height: 100%;
+  -webkit-transition: width 0.3s linear 0.2s, -webkit-transform 0.3s linear;
+  transition: width 0.3s linear 0.2s, -webkit-transform 0.3s linear;
+  transition: transform 0.3s linear, width 0.3s linear 0.2s;
+  transition: transform 0.3s linear, width 0.3s linear 0.2s, -webkit-transform 0.3s linear;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+main .wrapper .ship.vertical[data-length="2"] {
+  width: 40px;
+  height: 80px;
+  -webkit-transition: height 0.3s linear, width 0.3s linear;
+  transition: height 0.3s linear, width 0.3s linear;
+}
+main .wrapper .ship.vertical[data-length="2"] img {
+  -webkit-transform: rotate(-90deg);
+          transform: rotate(-90deg);
+  width: 200%;
+  -webkit-transition: width 0.3s linear 0.2s, -webkit-transform 0.3s linear;
+  transition: width 0.3s linear 0.2s, -webkit-transform 0.3s linear;
+  transition: transform 0.3s linear, width 0.3s linear 0.2s;
+  transition: transform 0.3s linear, width 0.3s linear 0.2s, -webkit-transform 0.3s linear;
+}
+main .wrapper .ship:hover {
+  -webkit-box-shadow: inset 0 0 15px rgba(47, 142, 139, 0.9), 0 0 25px rgba(47, 142, 139, 0.9);
+          box-shadow: inset 0 0 15px rgba(47, 142, 139, 0.9), 0 0 25px rgba(47, 142, 139, 0.9);
+  scale: 1.2;
+}
+main .wrapper .ship.dragging {
+  opacity: 0.8;
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
+}
+main .wrapper .ship.placed {
+  position: absolute;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  cursor: default;
+  z-index: 10;
+}
+main .wrapper .grid-container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (40px)[10];
+  grid-template-columns: repeat(10, 40px);
+  -ms-grid-rows: (40px)[10];
+  grid-template-rows: repeat(10, 40px);
+  width: 400px;
+  height: 400px;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  border: 4px solid #0b1a1a;
+  position: relative;
+}
+main .wrapper .grid-container > *:nth-child(1) {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+}
+main .wrapper .grid-container > *:nth-child(2) {
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+}
+main .wrapper .grid-container > *:nth-child(3) {
+  -ms-grid-row: 1;
+  -ms-grid-column: 3;
+}
+main .wrapper .grid-container > *:nth-child(4) {
+  -ms-grid-row: 1;
+  -ms-grid-column: 4;
+}
+main .wrapper .grid-container > *:nth-child(5) {
+  -ms-grid-row: 1;
+  -ms-grid-column: 5;
+}
+main .wrapper .grid-container > *:nth-child(6) {
+  -ms-grid-row: 1;
+  -ms-grid-column: 6;
+}
+main .wrapper .grid-container > *:nth-child(7) {
+  -ms-grid-row: 1;
+  -ms-grid-column: 7;
+}
+main .wrapper .grid-container > *:nth-child(8) {
+  -ms-grid-row: 1;
+  -ms-grid-column: 8;
+}
+main .wrapper .grid-container > *:nth-child(9) {
+  -ms-grid-row: 1;
+  -ms-grid-column: 9;
+}
+main .wrapper .grid-container > *:nth-child(10) {
+  -ms-grid-row: 1;
+  -ms-grid-column: 10;
+}
+main .wrapper .grid-container > *:nth-child(11) {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+}
+main .wrapper .grid-container > *:nth-child(12) {
+  -ms-grid-row: 2;
+  -ms-grid-column: 2;
+}
+main .wrapper .grid-container > *:nth-child(13) {
+  -ms-grid-row: 2;
+  -ms-grid-column: 3;
+}
+main .wrapper .grid-container > *:nth-child(14) {
+  -ms-grid-row: 2;
+  -ms-grid-column: 4;
+}
+main .wrapper .grid-container > *:nth-child(15) {
+  -ms-grid-row: 2;
+  -ms-grid-column: 5;
+}
+main .wrapper .grid-container > *:nth-child(16) {
+  -ms-grid-row: 2;
+  -ms-grid-column: 6;
+}
+main .wrapper .grid-container > *:nth-child(17) {
+  -ms-grid-row: 2;
+  -ms-grid-column: 7;
+}
+main .wrapper .grid-container > *:nth-child(18) {
+  -ms-grid-row: 2;
+  -ms-grid-column: 8;
+}
+main .wrapper .grid-container > *:nth-child(19) {
+  -ms-grid-row: 2;
+  -ms-grid-column: 9;
+}
+main .wrapper .grid-container > *:nth-child(20) {
+  -ms-grid-row: 2;
+  -ms-grid-column: 10;
+}
+main .wrapper .grid-container > *:nth-child(21) {
+  -ms-grid-row: 3;
+  -ms-grid-column: 1;
+}
+main .wrapper .grid-container > *:nth-child(22) {
+  -ms-grid-row: 3;
+  -ms-grid-column: 2;
+}
+main .wrapper .grid-container > *:nth-child(23) {
+  -ms-grid-row: 3;
+  -ms-grid-column: 3;
+}
+main .wrapper .grid-container > *:nth-child(24) {
+  -ms-grid-row: 3;
+  -ms-grid-column: 4;
+}
+main .wrapper .grid-container > *:nth-child(25) {
+  -ms-grid-row: 3;
+  -ms-grid-column: 5;
+}
+main .wrapper .grid-container > *:nth-child(26) {
+  -ms-grid-row: 3;
+  -ms-grid-column: 6;
+}
+main .wrapper .grid-container > *:nth-child(27) {
+  -ms-grid-row: 3;
+  -ms-grid-column: 7;
+}
+main .wrapper .grid-container > *:nth-child(28) {
+  -ms-grid-row: 3;
+  -ms-grid-column: 8;
+}
+main .wrapper .grid-container > *:nth-child(29) {
+  -ms-grid-row: 3;
+  -ms-grid-column: 9;
+}
+main .wrapper .grid-container > *:nth-child(30) {
+  -ms-grid-row: 3;
+  -ms-grid-column: 10;
+}
+main .wrapper .grid-container > *:nth-child(31) {
+  -ms-grid-row: 4;
+  -ms-grid-column: 1;
+}
+main .wrapper .grid-container > *:nth-child(32) {
+  -ms-grid-row: 4;
+  -ms-grid-column: 2;
+}
+main .wrapper .grid-container > *:nth-child(33) {
+  -ms-grid-row: 4;
+  -ms-grid-column: 3;
+}
+main .wrapper .grid-container > *:nth-child(34) {
+  -ms-grid-row: 4;
+  -ms-grid-column: 4;
+}
+main .wrapper .grid-container > *:nth-child(35) {
+  -ms-grid-row: 4;
+  -ms-grid-column: 5;
+}
+main .wrapper .grid-container > *:nth-child(36) {
+  -ms-grid-row: 4;
+  -ms-grid-column: 6;
+}
+main .wrapper .grid-container > *:nth-child(37) {
+  -ms-grid-row: 4;
+  -ms-grid-column: 7;
+}
+main .wrapper .grid-container > *:nth-child(38) {
+  -ms-grid-row: 4;
+  -ms-grid-column: 8;
+}
+main .wrapper .grid-container > *:nth-child(39) {
+  -ms-grid-row: 4;
+  -ms-grid-column: 9;
+}
+main .wrapper .grid-container > *:nth-child(40) {
+  -ms-grid-row: 4;
+  -ms-grid-column: 10;
+}
+main .wrapper .grid-container > *:nth-child(41) {
+  -ms-grid-row: 5;
+  -ms-grid-column: 1;
+}
+main .wrapper .grid-container > *:nth-child(42) {
+  -ms-grid-row: 5;
+  -ms-grid-column: 2;
+}
+main .wrapper .grid-container > *:nth-child(43) {
+  -ms-grid-row: 5;
+  -ms-grid-column: 3;
+}
+main .wrapper .grid-container > *:nth-child(44) {
+  -ms-grid-row: 5;
+  -ms-grid-column: 4;
+}
+main .wrapper .grid-container > *:nth-child(45) {
+  -ms-grid-row: 5;
+  -ms-grid-column: 5;
+}
+main .wrapper .grid-container > *:nth-child(46) {
+  -ms-grid-row: 5;
+  -ms-grid-column: 6;
+}
+main .wrapper .grid-container > *:nth-child(47) {
+  -ms-grid-row: 5;
+  -ms-grid-column: 7;
+}
+main .wrapper .grid-container > *:nth-child(48) {
+  -ms-grid-row: 5;
+  -ms-grid-column: 8;
+}
+main .wrapper .grid-container > *:nth-child(49) {
+  -ms-grid-row: 5;
+  -ms-grid-column: 9;
+}
+main .wrapper .grid-container > *:nth-child(50) {
+  -ms-grid-row: 5;
+  -ms-grid-column: 10;
+}
+main .wrapper .grid-container > *:nth-child(51) {
+  -ms-grid-row: 6;
+  -ms-grid-column: 1;
+}
+main .wrapper .grid-container > *:nth-child(52) {
+  -ms-grid-row: 6;
+  -ms-grid-column: 2;
+}
+main .wrapper .grid-container > *:nth-child(53) {
+  -ms-grid-row: 6;
+  -ms-grid-column: 3;
+}
+main .wrapper .grid-container > *:nth-child(54) {
+  -ms-grid-row: 6;
+  -ms-grid-column: 4;
+}
+main .wrapper .grid-container > *:nth-child(55) {
+  -ms-grid-row: 6;
+  -ms-grid-column: 5;
+}
+main .wrapper .grid-container > *:nth-child(56) {
+  -ms-grid-row: 6;
+  -ms-grid-column: 6;
+}
+main .wrapper .grid-container > *:nth-child(57) {
+  -ms-grid-row: 6;
+  -ms-grid-column: 7;
+}
+main .wrapper .grid-container > *:nth-child(58) {
+  -ms-grid-row: 6;
+  -ms-grid-column: 8;
+}
+main .wrapper .grid-container > *:nth-child(59) {
+  -ms-grid-row: 6;
+  -ms-grid-column: 9;
+}
+main .wrapper .grid-container > *:nth-child(60) {
+  -ms-grid-row: 6;
+  -ms-grid-column: 10;
+}
+main .wrapper .grid-container > *:nth-child(61) {
+  -ms-grid-row: 7;
+  -ms-grid-column: 1;
+}
+main .wrapper .grid-container > *:nth-child(62) {
+  -ms-grid-row: 7;
+  -ms-grid-column: 2;
+}
+main .wrapper .grid-container > *:nth-child(63) {
+  -ms-grid-row: 7;
+  -ms-grid-column: 3;
+}
+main .wrapper .grid-container > *:nth-child(64) {
+  -ms-grid-row: 7;
+  -ms-grid-column: 4;
+}
+main .wrapper .grid-container > *:nth-child(65) {
+  -ms-grid-row: 7;
+  -ms-grid-column: 5;
+}
+main .wrapper .grid-container > *:nth-child(66) {
+  -ms-grid-row: 7;
+  -ms-grid-column: 6;
+}
+main .wrapper .grid-container > *:nth-child(67) {
+  -ms-grid-row: 7;
+  -ms-grid-column: 7;
+}
+main .wrapper .grid-container > *:nth-child(68) {
+  -ms-grid-row: 7;
+  -ms-grid-column: 8;
+}
+main .wrapper .grid-container > *:nth-child(69) {
+  -ms-grid-row: 7;
+  -ms-grid-column: 9;
+}
+main .wrapper .grid-container > *:nth-child(70) {
+  -ms-grid-row: 7;
+  -ms-grid-column: 10;
+}
+main .wrapper .grid-container > *:nth-child(71) {
+  -ms-grid-row: 8;
+  -ms-grid-column: 1;
+}
+main .wrapper .grid-container > *:nth-child(72) {
+  -ms-grid-row: 8;
+  -ms-grid-column: 2;
+}
+main .wrapper .grid-container > *:nth-child(73) {
+  -ms-grid-row: 8;
+  -ms-grid-column: 3;
+}
+main .wrapper .grid-container > *:nth-child(74) {
+  -ms-grid-row: 8;
+  -ms-grid-column: 4;
+}
+main .wrapper .grid-container > *:nth-child(75) {
+  -ms-grid-row: 8;
+  -ms-grid-column: 5;
+}
+main .wrapper .grid-container > *:nth-child(76) {
+  -ms-grid-row: 8;
+  -ms-grid-column: 6;
+}
+main .wrapper .grid-container > *:nth-child(77) {
+  -ms-grid-row: 8;
+  -ms-grid-column: 7;
+}
+main .wrapper .grid-container > *:nth-child(78) {
+  -ms-grid-row: 8;
+  -ms-grid-column: 8;
+}
+main .wrapper .grid-container > *:nth-child(79) {
+  -ms-grid-row: 8;
+  -ms-grid-column: 9;
+}
+main .wrapper .grid-container > *:nth-child(80) {
+  -ms-grid-row: 8;
+  -ms-grid-column: 10;
+}
+main .wrapper .grid-container > *:nth-child(81) {
+  -ms-grid-row: 9;
+  -ms-grid-column: 1;
+}
+main .wrapper .grid-container > *:nth-child(82) {
+  -ms-grid-row: 9;
+  -ms-grid-column: 2;
+}
+main .wrapper .grid-container > *:nth-child(83) {
+  -ms-grid-row: 9;
+  -ms-grid-column: 3;
+}
+main .wrapper .grid-container > *:nth-child(84) {
+  -ms-grid-row: 9;
+  -ms-grid-column: 4;
+}
+main .wrapper .grid-container > *:nth-child(85) {
+  -ms-grid-row: 9;
+  -ms-grid-column: 5;
+}
+main .wrapper .grid-container > *:nth-child(86) {
+  -ms-grid-row: 9;
+  -ms-grid-column: 6;
+}
+main .wrapper .grid-container > *:nth-child(87) {
+  -ms-grid-row: 9;
+  -ms-grid-column: 7;
+}
+main .wrapper .grid-container > *:nth-child(88) {
+  -ms-grid-row: 9;
+  -ms-grid-column: 8;
+}
+main .wrapper .grid-container > *:nth-child(89) {
+  -ms-grid-row: 9;
+  -ms-grid-column: 9;
+}
+main .wrapper .grid-container > *:nth-child(90) {
+  -ms-grid-row: 9;
+  -ms-grid-column: 10;
+}
+main .wrapper .grid-container > *:nth-child(91) {
+  -ms-grid-row: 10;
+  -ms-grid-column: 1;
+}
+main .wrapper .grid-container > *:nth-child(92) {
+  -ms-grid-row: 10;
+  -ms-grid-column: 2;
+}
+main .wrapper .grid-container > *:nth-child(93) {
+  -ms-grid-row: 10;
+  -ms-grid-column: 3;
+}
+main .wrapper .grid-container > *:nth-child(94) {
+  -ms-grid-row: 10;
+  -ms-grid-column: 4;
+}
+main .wrapper .grid-container > *:nth-child(95) {
+  -ms-grid-row: 10;
+  -ms-grid-column: 5;
+}
+main .wrapper .grid-container > *:nth-child(96) {
+  -ms-grid-row: 10;
+  -ms-grid-column: 6;
+}
+main .wrapper .grid-container > *:nth-child(97) {
+  -ms-grid-row: 10;
+  -ms-grid-column: 7;
+}
+main .wrapper .grid-container > *:nth-child(98) {
+  -ms-grid-row: 10;
+  -ms-grid-column: 8;
+}
+main .wrapper .grid-container > *:nth-child(99) {
+  -ms-grid-row: 10;
+  -ms-grid-column: 9;
+}
+main .wrapper .grid-container > *:nth-child(100) {
+  -ms-grid-row: 10;
+  -ms-grid-column: 10;
+}
+main .wrapper .grid-cell {
+  width: 40px;
+  height: 40px;
+  border: 1px solid grey;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-transition: background-color 0.2s;
+  transition: background-color 0.2s;
   background-color: rgba(26, 26, 26, 0.7);
-  padding: 40px 20px;
-  gap: 30px;
 }
-main .wrapper .playingFieldContainer .ship-image.vertical {
-  -webkit-transform: rotate(90deg);
-          transform: rotate(90deg);
-  -webkit-transform-origin: center center;
-          transform-origin: center center; /* Ensure rotation is around the center */
+main .wrapper .grid-cell.drag-over {
+  background-color: #0ebadd;
 }
-main .wrapper .playingFieldContainer .shipsContainer {
+main .wrapper .grid-cell.invalid {
+  background-color: #f33c3c;
+}
+main .wrapper .grid-wrapper, main .wrapper .enemy-wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -160,882 +744,34 @@ main .wrapper .playingFieldContainer .shipsContainer {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  height: 100%;
 }
-main .wrapper .playingFieldContainer .shipsContainer h3 {
-  font-family: "Pirata One", cursive;
-  font-weight: normal;
-  color: #f0e6d2;
-  letter-spacing: 1px;
+main .wrapper .grid-container .enemy-ship-cell {
+  background-color: #bbb;
 }
-main .wrapper .playingFieldContainer .shipsContainer .ship-image {
-  width: auto;
-  height: 40px;
-  cursor: -webkit-grab;
-  cursor: grab;
-  -o-object-fit: fill;
-     object-fit: fill;
+main .wrapper .grid-cell.hit {
+  background-color: #ff4d4f;
+}
+main .wrapper .grid-cell.miss {
+  background-color: transparent;
+  position: relative;
+}
+main .wrapper .grid-cell.miss::after {
+  color: #555;
+  font-size: 24px;
+  position: absolute;
+  top: 4px;
+  left: 12px;
+}
+main .wrapper .grid-cell.ai-hit {
+  background-color: red;
   z-index: 100;
+  opacity: 0.4;
 }
-main .wrapper .playingFieldContainer .shipsContainer .ship-size-5 {
-  width: 200px;
-  height: 40px;
-}
-main .wrapper .playingFieldContainer .shipsContainer .ship-size-4 {
-  width: 160px;
-  height: 40px;
-}
-main .wrapper .playingFieldContainer .shipsContainer .ship-size-3 {
-  width: 120px;
-  height: 40px;
-}
-main .wrapper .playingFieldContainer .shipsContainer .ship-size-2 {
-  width: 80px;
-  height: 40px;
-}
-main .wrapper .playingFieldContainer .shipsContainer .ship-size-1 {
-  width: 40px;
-  height: 40px;
-}
-main .wrapper .playingFieldContainer .playerGrid {
-  position: relative;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: 35px 2px 35px 2px 35px 2px 35px 2px 35px 2px 35px 2px 35px 2px 35px 2px 35px 2px 35px;
-  grid-template-columns: repeat(10, 35px);
-  -ms-grid-rows: 35px 2px 35px 2px 35px 2px 35px 2px 35px 2px 35px 2px 35px 2px 35px 2px 35px 2px 35px;
-  grid-template-rows: repeat(10, 35px);
-  gap: 2px;
-  padding: 5px;
-  background-color: rgba(26, 26, 26, 0.7);
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(1) {
-  -ms-grid-row: 1;
-  -ms-grid-column: 1;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(2) {
-  -ms-grid-row: 1;
-  -ms-grid-column: 3;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(3) {
-  -ms-grid-row: 1;
-  -ms-grid-column: 5;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(4) {
-  -ms-grid-row: 1;
-  -ms-grid-column: 7;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(5) {
-  -ms-grid-row: 1;
-  -ms-grid-column: 9;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(6) {
-  -ms-grid-row: 1;
-  -ms-grid-column: 11;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(7) {
-  -ms-grid-row: 1;
-  -ms-grid-column: 13;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(8) {
-  -ms-grid-row: 1;
-  -ms-grid-column: 15;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(9) {
-  -ms-grid-row: 1;
-  -ms-grid-column: 17;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(10) {
-  -ms-grid-row: 1;
-  -ms-grid-column: 19;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(11) {
-  -ms-grid-row: 3;
-  -ms-grid-column: 1;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(12) {
-  -ms-grid-row: 3;
-  -ms-grid-column: 3;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(13) {
-  -ms-grid-row: 3;
-  -ms-grid-column: 5;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(14) {
-  -ms-grid-row: 3;
-  -ms-grid-column: 7;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(15) {
-  -ms-grid-row: 3;
-  -ms-grid-column: 9;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(16) {
-  -ms-grid-row: 3;
-  -ms-grid-column: 11;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(17) {
-  -ms-grid-row: 3;
-  -ms-grid-column: 13;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(18) {
-  -ms-grid-row: 3;
-  -ms-grid-column: 15;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(19) {
-  -ms-grid-row: 3;
-  -ms-grid-column: 17;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(20) {
-  -ms-grid-row: 3;
-  -ms-grid-column: 19;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(21) {
-  -ms-grid-row: 5;
-  -ms-grid-column: 1;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(22) {
-  -ms-grid-row: 5;
-  -ms-grid-column: 3;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(23) {
-  -ms-grid-row: 5;
-  -ms-grid-column: 5;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(24) {
-  -ms-grid-row: 5;
-  -ms-grid-column: 7;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(25) {
-  -ms-grid-row: 5;
-  -ms-grid-column: 9;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(26) {
-  -ms-grid-row: 5;
-  -ms-grid-column: 11;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(27) {
-  -ms-grid-row: 5;
-  -ms-grid-column: 13;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(28) {
-  -ms-grid-row: 5;
-  -ms-grid-column: 15;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(29) {
-  -ms-grid-row: 5;
-  -ms-grid-column: 17;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(30) {
-  -ms-grid-row: 5;
-  -ms-grid-column: 19;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(31) {
-  -ms-grid-row: 7;
-  -ms-grid-column: 1;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(32) {
-  -ms-grid-row: 7;
-  -ms-grid-column: 3;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(33) {
-  -ms-grid-row: 7;
-  -ms-grid-column: 5;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(34) {
-  -ms-grid-row: 7;
-  -ms-grid-column: 7;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(35) {
-  -ms-grid-row: 7;
-  -ms-grid-column: 9;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(36) {
-  -ms-grid-row: 7;
-  -ms-grid-column: 11;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(37) {
-  -ms-grid-row: 7;
-  -ms-grid-column: 13;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(38) {
-  -ms-grid-row: 7;
-  -ms-grid-column: 15;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(39) {
-  -ms-grid-row: 7;
-  -ms-grid-column: 17;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(40) {
-  -ms-grid-row: 7;
-  -ms-grid-column: 19;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(41) {
-  -ms-grid-row: 9;
-  -ms-grid-column: 1;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(42) {
-  -ms-grid-row: 9;
-  -ms-grid-column: 3;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(43) {
-  -ms-grid-row: 9;
-  -ms-grid-column: 5;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(44) {
-  -ms-grid-row: 9;
-  -ms-grid-column: 7;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(45) {
-  -ms-grid-row: 9;
-  -ms-grid-column: 9;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(46) {
-  -ms-grid-row: 9;
-  -ms-grid-column: 11;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(47) {
-  -ms-grid-row: 9;
-  -ms-grid-column: 13;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(48) {
-  -ms-grid-row: 9;
-  -ms-grid-column: 15;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(49) {
-  -ms-grid-row: 9;
-  -ms-grid-column: 17;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(50) {
-  -ms-grid-row: 9;
-  -ms-grid-column: 19;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(51) {
-  -ms-grid-row: 11;
-  -ms-grid-column: 1;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(52) {
-  -ms-grid-row: 11;
-  -ms-grid-column: 3;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(53) {
-  -ms-grid-row: 11;
-  -ms-grid-column: 5;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(54) {
-  -ms-grid-row: 11;
-  -ms-grid-column: 7;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(55) {
-  -ms-grid-row: 11;
-  -ms-grid-column: 9;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(56) {
-  -ms-grid-row: 11;
-  -ms-grid-column: 11;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(57) {
-  -ms-grid-row: 11;
-  -ms-grid-column: 13;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(58) {
-  -ms-grid-row: 11;
-  -ms-grid-column: 15;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(59) {
-  -ms-grid-row: 11;
-  -ms-grid-column: 17;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(60) {
-  -ms-grid-row: 11;
-  -ms-grid-column: 19;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(61) {
-  -ms-grid-row: 13;
-  -ms-grid-column: 1;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(62) {
-  -ms-grid-row: 13;
-  -ms-grid-column: 3;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(63) {
-  -ms-grid-row: 13;
-  -ms-grid-column: 5;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(64) {
-  -ms-grid-row: 13;
-  -ms-grid-column: 7;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(65) {
-  -ms-grid-row: 13;
-  -ms-grid-column: 9;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(66) {
-  -ms-grid-row: 13;
-  -ms-grid-column: 11;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(67) {
-  -ms-grid-row: 13;
-  -ms-grid-column: 13;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(68) {
-  -ms-grid-row: 13;
-  -ms-grid-column: 15;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(69) {
-  -ms-grid-row: 13;
-  -ms-grid-column: 17;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(70) {
-  -ms-grid-row: 13;
-  -ms-grid-column: 19;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(71) {
-  -ms-grid-row: 15;
-  -ms-grid-column: 1;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(72) {
-  -ms-grid-row: 15;
-  -ms-grid-column: 3;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(73) {
-  -ms-grid-row: 15;
-  -ms-grid-column: 5;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(74) {
-  -ms-grid-row: 15;
-  -ms-grid-column: 7;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(75) {
-  -ms-grid-row: 15;
-  -ms-grid-column: 9;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(76) {
-  -ms-grid-row: 15;
-  -ms-grid-column: 11;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(77) {
-  -ms-grid-row: 15;
-  -ms-grid-column: 13;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(78) {
-  -ms-grid-row: 15;
-  -ms-grid-column: 15;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(79) {
-  -ms-grid-row: 15;
-  -ms-grid-column: 17;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(80) {
-  -ms-grid-row: 15;
-  -ms-grid-column: 19;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(81) {
-  -ms-grid-row: 17;
-  -ms-grid-column: 1;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(82) {
-  -ms-grid-row: 17;
-  -ms-grid-column: 3;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(83) {
-  -ms-grid-row: 17;
-  -ms-grid-column: 5;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(84) {
-  -ms-grid-row: 17;
-  -ms-grid-column: 7;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(85) {
-  -ms-grid-row: 17;
-  -ms-grid-column: 9;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(86) {
-  -ms-grid-row: 17;
-  -ms-grid-column: 11;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(87) {
-  -ms-grid-row: 17;
-  -ms-grid-column: 13;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(88) {
-  -ms-grid-row: 17;
-  -ms-grid-column: 15;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(89) {
-  -ms-grid-row: 17;
-  -ms-grid-column: 17;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(90) {
-  -ms-grid-row: 17;
-  -ms-grid-column: 19;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(91) {
-  -ms-grid-row: 19;
-  -ms-grid-column: 1;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(92) {
-  -ms-grid-row: 19;
-  -ms-grid-column: 3;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(93) {
-  -ms-grid-row: 19;
-  -ms-grid-column: 5;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(94) {
-  -ms-grid-row: 19;
-  -ms-grid-column: 7;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(95) {
-  -ms-grid-row: 19;
-  -ms-grid-column: 9;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(96) {
-  -ms-grid-row: 19;
-  -ms-grid-column: 11;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(97) {
-  -ms-grid-row: 19;
-  -ms-grid-column: 13;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(98) {
-  -ms-grid-row: 19;
-  -ms-grid-column: 15;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(99) {
-  -ms-grid-row: 19;
-  -ms-grid-column: 17;
-}
-main .wrapper .playingFieldContainer .playerGrid > *:nth-child(100) {
-  -ms-grid-row: 19;
-  -ms-grid-column: 19;
-}
-main .wrapper .playingFieldContainer .enemyGrid {
-  position: relative;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: 35px 2px 35px 2px 35px 2px 35px 2px 35px 2px 35px 2px 35px 2px 35px 2px 35px 2px 35px;
-  grid-template-columns: repeat(10, 35px);
-  -ms-grid-rows: 35px 2px 35px 2px 35px 2px 35px 2px 35px 2px 35px 2px 35px 2px 35px 2px 35px 2px 35px;
-  grid-template-rows: repeat(10, 35px);
-  gap: 2px;
-  padding: 5px;
-  background-color: rgba(26, 26, 26, 0.7);
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(1) {
-  -ms-grid-row: 1;
-  -ms-grid-column: 1;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(2) {
-  -ms-grid-row: 1;
-  -ms-grid-column: 3;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(3) {
-  -ms-grid-row: 1;
-  -ms-grid-column: 5;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(4) {
-  -ms-grid-row: 1;
-  -ms-grid-column: 7;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(5) {
-  -ms-grid-row: 1;
-  -ms-grid-column: 9;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(6) {
-  -ms-grid-row: 1;
-  -ms-grid-column: 11;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(7) {
-  -ms-grid-row: 1;
-  -ms-grid-column: 13;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(8) {
-  -ms-grid-row: 1;
-  -ms-grid-column: 15;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(9) {
-  -ms-grid-row: 1;
-  -ms-grid-column: 17;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(10) {
-  -ms-grid-row: 1;
-  -ms-grid-column: 19;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(11) {
-  -ms-grid-row: 3;
-  -ms-grid-column: 1;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(12) {
-  -ms-grid-row: 3;
-  -ms-grid-column: 3;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(13) {
-  -ms-grid-row: 3;
-  -ms-grid-column: 5;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(14) {
-  -ms-grid-row: 3;
-  -ms-grid-column: 7;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(15) {
-  -ms-grid-row: 3;
-  -ms-grid-column: 9;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(16) {
-  -ms-grid-row: 3;
-  -ms-grid-column: 11;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(17) {
-  -ms-grid-row: 3;
-  -ms-grid-column: 13;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(18) {
-  -ms-grid-row: 3;
-  -ms-grid-column: 15;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(19) {
-  -ms-grid-row: 3;
-  -ms-grid-column: 17;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(20) {
-  -ms-grid-row: 3;
-  -ms-grid-column: 19;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(21) {
-  -ms-grid-row: 5;
-  -ms-grid-column: 1;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(22) {
-  -ms-grid-row: 5;
-  -ms-grid-column: 3;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(23) {
-  -ms-grid-row: 5;
-  -ms-grid-column: 5;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(24) {
-  -ms-grid-row: 5;
-  -ms-grid-column: 7;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(25) {
-  -ms-grid-row: 5;
-  -ms-grid-column: 9;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(26) {
-  -ms-grid-row: 5;
-  -ms-grid-column: 11;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(27) {
-  -ms-grid-row: 5;
-  -ms-grid-column: 13;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(28) {
-  -ms-grid-row: 5;
-  -ms-grid-column: 15;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(29) {
-  -ms-grid-row: 5;
-  -ms-grid-column: 17;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(30) {
-  -ms-grid-row: 5;
-  -ms-grid-column: 19;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(31) {
-  -ms-grid-row: 7;
-  -ms-grid-column: 1;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(32) {
-  -ms-grid-row: 7;
-  -ms-grid-column: 3;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(33) {
-  -ms-grid-row: 7;
-  -ms-grid-column: 5;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(34) {
-  -ms-grid-row: 7;
-  -ms-grid-column: 7;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(35) {
-  -ms-grid-row: 7;
-  -ms-grid-column: 9;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(36) {
-  -ms-grid-row: 7;
-  -ms-grid-column: 11;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(37) {
-  -ms-grid-row: 7;
-  -ms-grid-column: 13;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(38) {
-  -ms-grid-row: 7;
-  -ms-grid-column: 15;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(39) {
-  -ms-grid-row: 7;
-  -ms-grid-column: 17;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(40) {
-  -ms-grid-row: 7;
-  -ms-grid-column: 19;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(41) {
-  -ms-grid-row: 9;
-  -ms-grid-column: 1;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(42) {
-  -ms-grid-row: 9;
-  -ms-grid-column: 3;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(43) {
-  -ms-grid-row: 9;
-  -ms-grid-column: 5;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(44) {
-  -ms-grid-row: 9;
-  -ms-grid-column: 7;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(45) {
-  -ms-grid-row: 9;
-  -ms-grid-column: 9;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(46) {
-  -ms-grid-row: 9;
-  -ms-grid-column: 11;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(47) {
-  -ms-grid-row: 9;
-  -ms-grid-column: 13;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(48) {
-  -ms-grid-row: 9;
-  -ms-grid-column: 15;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(49) {
-  -ms-grid-row: 9;
-  -ms-grid-column: 17;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(50) {
-  -ms-grid-row: 9;
-  -ms-grid-column: 19;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(51) {
-  -ms-grid-row: 11;
-  -ms-grid-column: 1;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(52) {
-  -ms-grid-row: 11;
-  -ms-grid-column: 3;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(53) {
-  -ms-grid-row: 11;
-  -ms-grid-column: 5;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(54) {
-  -ms-grid-row: 11;
-  -ms-grid-column: 7;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(55) {
-  -ms-grid-row: 11;
-  -ms-grid-column: 9;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(56) {
-  -ms-grid-row: 11;
-  -ms-grid-column: 11;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(57) {
-  -ms-grid-row: 11;
-  -ms-grid-column: 13;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(58) {
-  -ms-grid-row: 11;
-  -ms-grid-column: 15;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(59) {
-  -ms-grid-row: 11;
-  -ms-grid-column: 17;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(60) {
-  -ms-grid-row: 11;
-  -ms-grid-column: 19;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(61) {
-  -ms-grid-row: 13;
-  -ms-grid-column: 1;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(62) {
-  -ms-grid-row: 13;
-  -ms-grid-column: 3;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(63) {
-  -ms-grid-row: 13;
-  -ms-grid-column: 5;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(64) {
-  -ms-grid-row: 13;
-  -ms-grid-column: 7;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(65) {
-  -ms-grid-row: 13;
-  -ms-grid-column: 9;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(66) {
-  -ms-grid-row: 13;
-  -ms-grid-column: 11;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(67) {
-  -ms-grid-row: 13;
-  -ms-grid-column: 13;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(68) {
-  -ms-grid-row: 13;
-  -ms-grid-column: 15;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(69) {
-  -ms-grid-row: 13;
-  -ms-grid-column: 17;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(70) {
-  -ms-grid-row: 13;
-  -ms-grid-column: 19;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(71) {
-  -ms-grid-row: 15;
-  -ms-grid-column: 1;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(72) {
-  -ms-grid-row: 15;
-  -ms-grid-column: 3;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(73) {
-  -ms-grid-row: 15;
-  -ms-grid-column: 5;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(74) {
-  -ms-grid-row: 15;
-  -ms-grid-column: 7;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(75) {
-  -ms-grid-row: 15;
-  -ms-grid-column: 9;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(76) {
-  -ms-grid-row: 15;
-  -ms-grid-column: 11;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(77) {
-  -ms-grid-row: 15;
-  -ms-grid-column: 13;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(78) {
-  -ms-grid-row: 15;
-  -ms-grid-column: 15;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(79) {
-  -ms-grid-row: 15;
-  -ms-grid-column: 17;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(80) {
-  -ms-grid-row: 15;
-  -ms-grid-column: 19;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(81) {
-  -ms-grid-row: 17;
-  -ms-grid-column: 1;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(82) {
-  -ms-grid-row: 17;
-  -ms-grid-column: 3;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(83) {
-  -ms-grid-row: 17;
-  -ms-grid-column: 5;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(84) {
-  -ms-grid-row: 17;
-  -ms-grid-column: 7;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(85) {
-  -ms-grid-row: 17;
-  -ms-grid-column: 9;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(86) {
-  -ms-grid-row: 17;
-  -ms-grid-column: 11;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(87) {
-  -ms-grid-row: 17;
-  -ms-grid-column: 13;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(88) {
-  -ms-grid-row: 17;
-  -ms-grid-column: 15;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(89) {
-  -ms-grid-row: 17;
-  -ms-grid-column: 17;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(90) {
-  -ms-grid-row: 17;
-  -ms-grid-column: 19;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(91) {
-  -ms-grid-row: 19;
-  -ms-grid-column: 1;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(92) {
-  -ms-grid-row: 19;
-  -ms-grid-column: 3;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(93) {
-  -ms-grid-row: 19;
-  -ms-grid-column: 5;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(94) {
-  -ms-grid-row: 19;
-  -ms-grid-column: 7;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(95) {
-  -ms-grid-row: 19;
-  -ms-grid-column: 9;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(96) {
-  -ms-grid-row: 19;
-  -ms-grid-column: 11;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(97) {
-  -ms-grid-row: 19;
-  -ms-grid-column: 13;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(98) {
-  -ms-grid-row: 19;
-  -ms-grid-column: 15;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(99) {
-  -ms-grid-row: 19;
-  -ms-grid-column: 17;
-}
-main .wrapper .playingFieldContainer .enemyGrid > *:nth-child(100) {
-  -ms-grid-row: 19;
-  -ms-grid-column: 19;
-}
-main .wrapper .playingFieldContainer .cell {
-  width: 35px;
-  height: 35px;
-  background-color: #153d3c;
-  border: 1px solid #0b1a1a;
-  position: relative;
-}
-main .wrapper .playingFieldContainer .placed-ship {
-  pointer-events: none;
-  z-index: 10;
+main .wrapper .grid-cell.ai-miss {
+  background-color: transparent;
 }
 main .wrapper .color-palette {
   display: -ms-grid;
