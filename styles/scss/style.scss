@@ -19,7 +19,7 @@ $color-gold: #c9a66b; // Золотий відтінок
 
 $color-1: #153d3c; // тёмно-бирюзовый
 $color-2: #1b6c7e; // морской синий
-$color-3: #2f8e8b; // бирюзово-синий
+$color-3: #2d9793; // бирюзово-синий
 $color-4: #0b1a1a; // глубокий морской
 $color-5: #3a5557; // серо-синий
 
@@ -115,31 +115,24 @@ main {
 
       .ships-palette {
         display: grid;
-        max-height: 400px;
+        height: 408px;
+        width: 220px;
         grid-auto-flow: row;
         grid-template-columns: repeat(auto-fit, minmax(170px, auto));
         gap: 20px;
         padding: 20px;
+        overflow-x: hidden;
         overflow-y: auto;
-        //align-content: center;
+        //box-sizing: content-box;
         border: 4px solid $color-4;
         @include background-overlay($color-bg, 0.7);
-
-        //padding: 15px;
         border-radius: 8px;
-        //box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-
-
+        scrollbar-width: thin;
+        scrollbar-color: $color-bg transparent;
       }
 
 
-    }
-    .navigation{
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      grid-column: 2 / 4;
-      grid-row: 2 / 3;
+
     }
 
 
@@ -148,12 +141,11 @@ main {
       align-items: center;
       justify-content: center;
       border: 1px solid $color-3;
-      border-radius: 8px;
-      margin-bottom: 30px;
+      border-radius: 5px;
       //box-sizing: content-box;
       //padding: 10px;
       cursor: grab;
-      transition: height .2s linear, width .3s linear .1s, scale .3s ease-out;
+      transition: height .2s linear, width .3s linear .1s, scale .3s ease-out, box-shadow .2s linear;
 
       img {
         width: 100%;
@@ -233,8 +225,8 @@ main {
     }
 
     .ship:hover {
-      box-shadow: inset 0 0 15px rgba($color-3, 0.9), 0 0 25px rgba($color-3, 0.9);
-      scale: 1.2;
+      box-shadow: inset 0 0 15px rgba($color-3, 0.4), 0 0 25px rgba($color-3, 0.4);
+      scale: 1.1;
     }
 
     //.ship:active {
@@ -261,6 +253,7 @@ main {
       height: 400px;
       box-sizing: content-box;
       border: 4px solid $color-4;
+      border-radius: 5px;
       position: relative;
 
     }
@@ -269,7 +262,7 @@ main {
       height: 40px;
       border: 1px solid grey;
       box-sizing: border-box;
-      transition: background-color 0.2s;
+      transition: background-color 0.3s linear;
       @include background-overlay($color-bg, 0.7);
     }
 
@@ -319,52 +312,37 @@ main {
     .grid-cell.ai-miss {
       background-color: transparent;
     }
+    .navigation{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      grid-column: 2 / 4;
+      grid-row: 2 / 3;
+      .start-button{
+        font-family: 'Pirata One', cursive;
+        font-size: 2rem;
+        padding: 7px 15px;
+        border: 3px solid $color-3;
+        //border-image: linear-gradient(to right, transparent, $color-3, transparent) 1;
+        border-radius: 15px;
+        color: #47c1be;
+        @include background-overlay($color-4, 0.7);
+        cursor: pointer;
+        transition: all .3s ease-in-out;
+        &:hover{
+          border-color: $color-gold;
+          color: $color-gold;
+          box-shadow: inset 0 0 15px rgba($color-3, 0.9);
+        }
+        &:disabled{
+          color: #ccc;
+          cursor: not-allowed;
+          opacity: 0.6;
+        }
+
+      }
 
 
-    .color-palette {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-      gap: 16px;
-      max-width: 900px;
-      margin: auto;
-    }
-
-    .color-block {
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-      color: #fff;
-      font-size: 14px;
-      font-weight: bold;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    }
-
-    .color-1 {
-      background-color: #153d3c;
-    }
-
-    .color-2 {
-      background-color: #1b6c7e;
-    }
-
-    .color-3 {
-      background-color: #2f8e8b;
-    }
-
-    .color-4 {
-      background-color: #0b1a1a;
-    }
-
-    .color-5 {
-      background-color: #3a5557;
-    }
-
-    .color-6 {
-      background-color: #1a1a1a;
-    }
-
-    .color-7 {
-      background-color: #c9a66b;
     }
   }
 }

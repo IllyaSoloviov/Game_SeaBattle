@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Мои проекты</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
+        header {
+            background-color: #4a90e2;
+            color: white;
+            padding: 20px 40px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .card a {
+            text-decoration: none;
+            color: #4a90e2;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .card a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                font-size: 0.95em;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>My works</h1>
+    <h2>Соловйов Ілля</h2>
+</header>
+
+<div class="container">
+    <div class="card">
+        <a href="./filmotopia-project/index.html">Финальный проект JS "Filmotopia"</a>
+    </div>
+    <div class="card">
+        <a href="./DzProfileGitHubSearchSoloviov/index.html">15-16 Canvas профиль GitHub + dz17-18 Chart.js</a>
+    </div>
+    <div class="card">
+        <a href="./19-20qUnitTest/Helper/test/unit.html">19-20qUnitTest</a>
+    </div>
+
+    <div class="card">
+      <a href="./SeaBattle/SeaBattle/index.html">SeaBattle</a>
+        <iframe src="https://squaren.swit.vn.ua/SeaBattle/SeaBattle/index.html" style="width: 200px; height: 150px;"></iframe>
+    </div>
+
+</div>
+</body>
+</html>
