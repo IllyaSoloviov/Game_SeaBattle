@@ -127,7 +127,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function checkAllShipsPlaced() {
         const unplaced = document.querySelectorAll('.ship:not(.placed)');
-        document.getElementById('start-button').disabled = unplaced.length !== 0;
+        const shipsPalette = document.querySelector('.ships-palette'); // Находим контейнер кораблей
+
+        if (unplaced.length === 0) {
+            document.getElementById('start-button').disabled = false;
+            if (shipsPalette) {
+                shipsPalette.style.padding = '0';
+                shipsPalette.style.height = '0';
+                shipsPalette.style.width = '0';
+                shipsPalette.style.opacity = '0';
+            }
+        } else {
+            document.getElementById('start-button').disabled = true;
+        }
     }
 
     function highlightCells(targetCell, isAdding) {
@@ -167,6 +179,15 @@ document.addEventListener('DOMContentLoaded', () => {
         playerBoard = gameBoard;
         playerShipCells = 0;
 
+        const shipsPalette = document.querySelector('.ships-palette');
+
+        if (shipsPalette) {
+            shipsPalette.style.height = '';
+            shipsPalette.style.width = '';
+            shipsPalette.style.padding = '';
+            shipsPalette.style.border = '';
+        }
+
         document.querySelectorAll('.ship').forEach(ship => {
             ship.classList.remove('placed', 'vertical');
             ship.style.top = '';
@@ -179,6 +200,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('#grid-container .grid-cell').forEach(cell => {
             cell.classList.remove('drag-over', 'invalid', 'ai-hit', 'ai-miss');
         });
+
+        checkAllShipsPlaced();
     }
 
     function autoPlacePlayerShips() {
@@ -327,8 +350,10 @@ document.addEventListener('DOMContentLoaded', () => {
             cell.replaceWith(cell.cloneNode(true));
         });
 
-        alert('Game Started!');
+        // alert('Game Started!');
+        placeEnemyShips();
+        enemyGrid.style.pointerEvents = 'auto';
     });
 
-    placeEnemyShips();
+
 });

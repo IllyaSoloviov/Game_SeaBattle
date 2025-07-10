@@ -21,6 +21,7 @@
     <div class="wrapper">
         <div class="shipsContainer ">
             <div class="ships-palette">
+                <div class="tip">Click to rotate <img src="./assets/Img/Icon/RBM.png" alt="rbm"></div>
                 <div id="ship_4_1" class="ship" draggable="true" data-length="4"><img
                         src="./assets/Img/ships/4X_Ship.png" alt="4-ship"></div>
                 <div id="ship_3_1" class="ship" draggable="true" data-length="3"><img
@@ -46,15 +47,15 @@
 
         <div class="grid-wrapper">
             <div id="grid-container" class="grid-container"></div>
-        </div>
 
-        <div class="enemy-wrapper">
-            <div id="enemy-grid" class="grid-container"></div>
+            <div id="enemy-grid" class="grid-container enemy-grid"></div>
+
+            <button id="auto-place-button" class="auto-place-button">Auto place</button>
+
         </div>
         <div class="navigation">
             <button id="start-button" class="start-button" disabled>StartGame</button> <!--disabled-->
 
-            <button id="auto-place-button" class="auto-place-button">Auto place</button>
         </div>
 
     </div>

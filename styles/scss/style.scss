@@ -19,7 +19,7 @@ $color-gold: #c9a66b; // Золотий відтінок
 
 $color-1: #153d3c; // тёмно-бирюзовый
 $color-2: #1b6c7e; // морской синий
-$color-3: #2d9793; // бирюзово-синий
+$color-3: #38c1bc; // бирюзово-синий
 $color-4: #0b1a1a; // глубокий морской
 $color-5: #3a5557; // серо-синий
 
@@ -100,37 +100,54 @@ main {
 
   .wrapper {
     display: grid;
-    grid-template-columns: 200px 1fr 1fr 200px;
+    grid-template-columns: 200px 1fr 200px;
     grid-template-rows: 460px 100px;
     column-gap: 30px;
     //@include background-overlay($color-bg, 0.7);
-    .shipsContainer {
+
+
+    .ships-palette {
       position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: start;
-      align-items: end;
+      display: grid;
+      height: 408px;
+      width: 220px;
+      grid-auto-flow: row;
+      grid-template-columns: repeat(auto-fit, minmax(170px, auto));
+      gap: 20px;
+      padding: 10px 5px 20px 10px;
+      overflow-x: hidden;
+      overflow-y: auto;
+      //box-sizing: content-box;
+      border: 4px solid $color-4;
+      @include background-overlay($color-bg, 0.7);
+      border-radius: 8px;
+      scrollbar-width: thin;
+      scrollbar-color: $color-bg transparent;
+      transition: width 0.3s linear .3s, opacity 0.6s ease-in .2s, height 0.6s linear;
       grid-column: 1 / 2;
       grid-row: 1 / 3;
 
-      .ships-palette {
-        display: grid;
-        height: 408px;
-        width: 220px;
-        grid-auto-flow: row;
-        grid-template-columns: repeat(auto-fit, minmax(170px, auto));
-        gap: 20px;
-        padding: 20px;
-        overflow-x: hidden;
-        overflow-y: auto;
-        //box-sizing: content-box;
-        border: 4px solid $color-4;
-        @include background-overlay($color-bg, 0.7);
-        border-radius: 8px;
-        scrollbar-width: thin;
-        scrollbar-color: $color-bg transparent;
-      }
+      .tip {
+        position: sticky;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+        gap: 7px;
+        top: 0;
+        border-radius: 4px;
+        color: $color-gold;
+        @include background-overlay($color-bg, 0.95);
+        z-index: 20;
 
+        img {
+          width: 20px;
+          height: 20px;
+          object-fit: cover;
+        }
+
+      }
 
 
     }
@@ -140,10 +157,11 @@ main {
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid $color-3;
+      border: 1px solid $color-gold;
       border-radius: 5px;
       //box-sizing: content-box;
       //padding: 10px;
+      //margin-left: 15px;
       cursor: grab;
       transition: height .2s linear, width .3s linear .1s, scale .3s ease-out, box-shadow .2s linear;
 
@@ -225,7 +243,7 @@ main {
     }
 
     .ship:hover {
-      box-shadow: inset 0 0 15px rgba($color-3, 0.4), 0 0 25px rgba($color-3, 0.4);
+      box-shadow: inset 0 0 15px rgba($color-3, 0.3), 0 0 10px rgba($color-3, 0.4);
       scale: 1.1;
     }
 
@@ -245,18 +263,60 @@ main {
       z-index: 10;
     }
 
-    .grid-container {
+    .grid-wrapper {
       display: grid;
-      grid-template-columns: repeat(10, 40px);
-      grid-template-rows: repeat(10, 40px);
-      width: 400px;
-      height: 400px;
-      box-sizing: content-box;
-      border: 4px solid $color-4;
-      border-radius: 5px;
-      position: relative;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto 50px;
+      column-gap: 20px;
+      row-gap: 5px;
+      align-items: start;
+      justify-items: center;
+
+      .grid-container {
+        display: grid;
+        grid-template-columns: repeat(10, 40px);
+        grid-template-rows: repeat(10, 40px);
+        width: 400px;
+        height: 400px;
+        box-sizing: content-box;
+        border: 4px solid $color-4;
+        border-radius: 5px;
+        position: relative;
+      }
+
+      .enemy-grid {
+        pointer-events: none;
+      }
+
+      .auto-place-button {
+        font-family: 'Pirata One', cursive;
+        color: $color-gold;
+        @include background-overlay($color-bg, 0.9);
+        border: 1px solid $color-gold;
+        border-radius: 5px;
+        font-weight: 100;
+        letter-spacing: 1px;
+        padding: 5px 10px;
+        width: auto;
+        height: auto;
+        cursor: pointer;
+        transition: scale .3s linear;
+
+        &:active {
+          scale: 0.85;
+        }
+
+        &:disabled {
+          color: #ccc;
+          cursor: not-allowed;
+          opacity: 0.6;
+          border-color: #ccc;
+          box-shadow: inset 0 0 15px rgba(#ccc, 0.2);
+        }
+      }
 
     }
+
     .grid-cell {
       width: 40px;
       height: 40px;
@@ -266,6 +326,7 @@ main {
       @include background-overlay($color-bg, 0.7);
     }
 
+
     .grid-cell.drag-over {
       background-color: #0ebadd;
     }
@@ -274,16 +335,10 @@ main {
       background-color: #f33c3c;
     }
 
-    .grid-wrapper, .enemy-wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
 
     //Отображение вражеских ячеек
     .grid-container .enemy-ship-cell {
-      background-color: #bbb ;
+      background-color: #bbb;
     }
 
     .grid-cell.hit {
@@ -292,7 +347,6 @@ main {
 
     .grid-cell.miss {
       background-color: transparent; //цвет чяейки при попадании
-      position: relative;
     }
 
     .grid-cell.miss::after {
@@ -305,39 +359,49 @@ main {
 
     .grid-cell.ai-hit {
       background-color: red;
-      z-index: 100;
+      z-index: 20;
       opacity: 0.4;
     }
 
     .grid-cell.ai-miss {
       background-color: transparent;
     }
-    .navigation{
+
+    .navigation {
       display: flex;
       align-items: center;
       justify-content: center;
-      grid-column: 2 / 4;
+      grid-column: 2 / 3;
       grid-row: 2 / 3;
-      .start-button{
+
+      .start-button {
         font-family: 'Pirata One', cursive;
         font-size: 2rem;
         padding: 7px 15px;
         border: 3px solid $color-3;
         //border-image: linear-gradient(to right, transparent, $color-3, transparent) 1;
         border-radius: 15px;
-        color: #47c1be;
+        color: #8cdad8;
         @include background-overlay($color-4, 0.7);
         cursor: pointer;
-        transition: all .3s ease-in-out;
-        &:hover{
+        transition: all .3s ease-in-out, scale .1s ease-in;
+
+        &:hover {
           border-color: $color-gold;
           color: $color-gold;
           box-shadow: inset 0 0 15px rgba($color-3, 0.9);
         }
-        &:disabled{
+
+        &:active {
+          scale: 0.9;
+        }
+
+        &:disabled {
           color: #ccc;
           cursor: not-allowed;
           opacity: 0.6;
+          border-color: #ccc;
+          box-shadow: inset 0 0 15px rgba(#ccc, 0.2);
         }
 
       }
