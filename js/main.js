@@ -2,6 +2,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const gridContainer = document.getElementById('grid-container');
     const enemyGrid = document.getElementById('enemy-grid');
     const ships = document.querySelectorAll('.ship');
+
+    const gameModal = document.getElementById('gameModal');
+    const closeModal = document.getElementById('closeModal');
+    const modalText = document.getElementById('modalText');
+
+
     const CELL_SIZE = 40;
     const GRID_SIZE = 10;
 
@@ -14,6 +20,25 @@ document.addEventListener('DOMContentLoaded', () => {
     let enemyShipCells = 0;
     let playerHits = 0;
     let enemyHits = 0;
+
+    function showModal(someText) {
+        const gameModal = document.getElementById('gameModal');
+        const closeModal = document.getElementById('closeModal');
+        const modalText = document.getElementById('modalText');
+        modalText.innerHTML = someText;
+        gameModal.style.display = 'flex';
+        setTimeout(() => {
+            gameModal.style.opacity = '1';
+        }, 300)
+
+        closeModal.addEventListener('click', () => {
+            gameModal.style.opacity = '0';
+            setTimeout(() => {
+                gameModal.style.display = 'none';
+            }, 300)
+        }, {once: true});
+
+    }
 
     // ген поля гравця
     for (let i = 0; i < GRID_SIZE * GRID_SIZE; i++) {
@@ -81,6 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
 //проверка на пересечение
     function canPlaceShip(row, col, length, isVertical) {
         if (isVertical) {
@@ -287,10 +313,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function checkVictory() {
         if (playerHits === enemyShipCells) {
-            alert(' Win!');
+            showModal("You Win!")
             enemyGrid.style.pointerEvents = 'none';
         } else if (enemyHits === playerShipCells) {
-            alert(' Loose!');
+            showModal("You Lose!")
             enemyGrid.style.pointerEvents = 'none';
         }
     }
@@ -303,7 +329,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } while (aiShots.some(shot => shot.row === row && shot.col === col));
 
         aiShots.push({row, col});
-        const index  = row * GRID_SIZE + col;
+        const index = row * GRID_SIZE + col;
         const cell = gridContainer.children[index];
 
         if (playerBoard[row][col] === 1) {
@@ -350,8 +376,10 @@ document.addEventListener('DOMContentLoaded', () => {
             cell.replaceWith(cell.cloneNode(true));
         });
 
-        // alert('Game Started!');
         placeEnemyShips();
+        document.getElementById('auto-place-button').disabled = true;
+        document.getElementById('start-button').disabled = true;
+
         enemyGrid.style.pointerEvents = 'auto';
     });
 
