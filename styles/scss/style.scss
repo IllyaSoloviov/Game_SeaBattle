@@ -34,8 +34,14 @@ $color-5: #3a5557; // серо-синий
 @mixin background-overlay($color, $alpha) {
   background-color: rgba($color, $alpha);
 }
-
-html, body {
+html, body{
+  //overflow-x: hidden;
+  width: 100% !important;
+}
+body {
+  width: 100%;
+  min-width: 1600px;
+  min-height: 800px;
   height: 100%;
   margin: 0;
   padding: 0;
@@ -504,7 +510,7 @@ main {
 
     //Отображение вражеских ячеек
     .grid-container .enemy-ship-cell {
-      background-color: #bbb;
+      //background-color: #bbb;
     }
 
     .grid-cell.hit {
@@ -547,3 +553,5 @@ footer {
   font-family: 'Pirata One', cursive;
   letter-spacing: 1px;
 }
+
+
